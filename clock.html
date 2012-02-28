@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>CLOCK</title>
+<style type="text/css">
+body {
+  text-align:auto;
+  height:100%;
+  width: 100%;
+  background-color: white;
+}
+html {
+  height:100%;
+  width:100%;
+  overflow:hidden;
+}
+
+canvas#clock {
+  display: block;
+  margin: auto;
+}
+.timezone {
+  color: #66F;
+  text-decoration: underline;
+}
+  
+</style>
+
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.timer.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+var UTC = false;
+
+function drawClockLine (context, s, front, back) {
+  //êjÇï`Ç≠ä÷êî
+  //ëæÇ≥ÅEêFÇÕcontextÇÃåªç›íl
+  var angle = - 2 * Math.PI * (s + 45) / 60;
+  context.beginPath();  
+  context.moveTo(back*Math.cos(angle),
+              - back*Math.sin(angle));
+  context.lineTo(front*Math.cos(angle),
+              - front*Math.sin(angle));
+  context.stroke();
+}
+function circle(context, x, y, radius){
+  context.arc(x, y, radius, 0, 2*Math.PI, false);
+}
+
+
+$(document).ready(function(){ 
+  var canvas = $("canvas#clock").get(0);
+  var w = canvas.width = $(document).width();
+  var h = canvas.height = $(document).height();
+  var size = Math.min(w, h);
+  var L = size / 2 * 0.9;
+  
+  var bgCanvas = $("<canvas></canvas>").attr({width:w, height:h}).get(0);
+  {
+    //ï∂éöî’ÇÃï`âÊ
+    var context = bgCanvas.getContext("2d");
+    context.save();
+    context.translate(w / 2, h / 2);
+    for(var i=0;i<60;++i) {
+      context.strokeStyle = "rgba(64, 64, 64, 1)";
+      if(i % 5 == 0){
+          context.lineWidth = L / 40;
+          drawClockLine(context, i, L, L*0.85);
+      } else {
+          context.lineWidth = L / 80;
+          drawClockLine(context, i, L, L*0.9);
+      }
+    }
+    context.restore();
+  }
+  
+  var prevTime = null;
+  function drawClock() {
+    var now = new Date();
+    var time = Math.floor(now);
+    
+    //CPUïââ◊Çå∏ÇÁÇ∑ÇΩÇﬂ, çƒï`âÊÇîÇØÇÈ
+    if(time == prevTime) {
+      return;
+    } else {
+      prevTime = time;
+    }
+    
+    var context = canvas.getContext("2d");
+    context.clearRect(0, 0, w, h);
+    context.drawImage(bgCanvas, 0, 0);
+    
+    context.save();
+    {
+      context.translate(w / 2, h / 2);
+      if(!UTC) {
+        var month = now.getMonth() + 1;
+        var date=now.getDate();
+        var day = now.getDay();
+        var seconds = now.getSeconds();
+        var minutes = now.getMinutes();   
+        var hours = now.getHours() + minutes / 60;
+        var am = (now.getHours() < 12);
+      } else {
+        var month = now.getUTCMonth() + 1;
+        var date=now.getUTCDate();
+        var day = now.getUTCDay();
+        var seconds = now.getUTCSeconds();
+        var minutes = now.getUTCMinutes();   
+        var hours = now.getUTCHours() + minutes / 60;
+        var am = (now.getUTCHours() < 12);
+      }
+      day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][day]
+
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      fontsize = parseInt(h/16)
+      context.font = fontsize + "px" + "'Times New Roman'";
+      context.fillText(month + "/" + date + " " + day + " " + (am?"AM":"PM"), 0, h/4-fontsize);
+      context.fillText((UTC?"UTC":"Local"), 0, h/4);
+      
+      
+      
+      context.strokeStyle = "rgba(32, 32, 32, 1)";
+      context.lineWidth = L / 20;
+      drawClockLine(context, hours * 5, L*0.5, -L*0.05);
+      
+      context.strokeStyle = "rgba(32, 32, 32, 1)";
+      context.lineWidth = L / 40;
+      drawClockLine(context, minutes, L*0.97, -L*0.1);
+
+      context.strokeStyle = "rgba(255, 0, 0, 1)";
+      context.lineWidth = L / 80;
+      drawClockLine(context, seconds, L, -L*0.1);
+      
+      context.fillStyle = "rgba(255, 0, 0, 1)";
+      context.beginPath();
+      circle(context, 0, 0, L / 40);
+      context.fill(); 
+      
+      context.restore();
+    }
+  }
+  setInterval(drawClock, 200);
+});
+</script>
+</head>
+<body>
+<span class="timezone" onclick="UTC=false">Local</span> <span class="timezone" onclick="UTC=true">UTC</span>
+
+<canvas id="clock" width="100%" height="100%"> </canvas>
+<br/ >
+<a href="https://github.com/doloopwhile/clock">https://github.com/doloopwhile/clock</a>
+</body></html>
