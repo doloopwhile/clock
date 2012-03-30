@@ -18,6 +18,7 @@ html {
 canvas#clock {
   display: block;
   margin: auto;
+  margin-top:-3em;
 }
 .timezone {
   color: #66F;
@@ -147,8 +148,7 @@ $(document).ready(function(){
 </head>
 <body>
 <span class="timezone" onclick="UTC=false">Local</span> <span class="timezone" onclick="UTC=true">UTC</span>
-
 <canvas id="clock" width="100%" height="100%"> </canvas>
-<br/ >
+<p>
 <a href="https://github.com/doloopwhile/clock">https://github.com/doloopwhile/clock</a>
 </body></html>
