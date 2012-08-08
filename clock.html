@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<meta http-equiv="Content-Type" content="text/html; charset=SHIFT-JIS">
 <title>CLOCK</title>
 <style type="text/css">
 body {
@@ -8,17 +8,19 @@ body {
   height:100%;
   width: 100%;
   background-color: white;
+  padding: 0;
+  margin: 0;
 }
 html {
   height:100%;
   width:100%;
   overflow:hidden;
+  padding: 0;
 }
 
 canvas#clock {
   display: block;
   margin: auto;
-  margin-top:-3em;
 }
 .timezone {
   color: #66F;
@@ -55,6 +57,10 @@ $(document).ready(function(){
   var h = canvas.height = $(document).height();
   var size = Math.min(w, h);
   var L = size / 2 * 0.9;
+
+  if(Math.min(w, h) < 200) {
+  $('div.timezone').attr({display: 'none'}).hide();
+  }
   
   var bgCanvas = $("<canvas></canvas>").attr({width:w, height:h}).get(0);
   {
@@ -149,8 +155,10 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<span class="timezone" onclick="UTC=false">Local</span> <span class="timezone" onclick="UTC=true">UTC</span>
-<canvas id="clock" width="100%" height="100%"> </canvas>
-<p>
-<a href="https://github.com/doloopwhile/clock">https://github.com/doloopwhile/clock</a>
-</body></html>
+    <div style='height: 0;' class="text">
+        <span class="timezone" onclick="UTC=false">Local</span>
+        <span class="timezone" onclick="UTC=true">UTC</span>
+    </div>
+    <canvas id="clock" width="100%" height="100%"> </canvas>
+</body>
+</html>
