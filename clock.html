@@ -23,12 +23,12 @@ canvas#clock {
 .timezone {
   color: #66F;
   text-decoration: underline;
+  cursor: pointer;
 }
   
 </style>
 
 <script src="js/jquery.js" type="text/javascript"></script>
-<script src="js/jquery.timer.js" type="text/javascript"></script>
 <script type="text/javascript">
 
 var UTC = false;
@@ -116,7 +116,9 @@ $(document).ready(function(){
       context.textAlign = "center";
       context.textBaseline = "middle";
       fontsize = parseInt(h/16)
-      context.font = fontsize + "px" + "'Times New Roman'";
+      //context.font = fontsize + "px 'Times New Roman'";
+      context.font = "bold " + fontsize + "px monospace";
+      context.fillStyle = "rgba(64, 64, 64, 1)";
       context.fillText(month + "/" + date + " " + day + " " + (am?"AM":"PM"), 0, h/4-fontsize);
       context.fillText((UTC?"UTC":"Local"), 0, h/4);
       
