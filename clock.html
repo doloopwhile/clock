@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=SHIFT-JIS">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CLOCK</title>
 <style type="text/css">
 body {
@@ -35,8 +35,8 @@ canvas#clock {
 var UTC = false;
 
 function drawClockLine (context, s, front, back) {
-    //j‚ğ•`‚­ŠÖ”
-    //‘¾‚³EF‚Ícontext‚ÌŒ»İ’l
+    //é‡ã‚’æãé–¢æ•°
+    //å¤ªã•ãƒ»è‰²ã¯contextã®ç¾åœ¨å€¤
     var angle = - 2 * Math.PI * (s + 45) / 60;
     context.beginPath();  
     context.moveTo(back*Math.cos(angle),
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
     var bgCanvas = $("<canvas></canvas>").attr({width:w, height:h}).get(0);
     {
-        //•¶š”Õ‚Ì•`‰æ
+        //æ–‡å­—ç›¤ã®æç”»
         var context = bgCanvas.getContext("2d");
         context.save();
         context.translate(w / 2, h / 2);
@@ -85,7 +85,7 @@ $(document).ready(function(){
         var now = new Date();
         var time = Math.floor(now);
 
-        //CPU•‰‰×‚ğŒ¸‚ç‚·‚½‚ß, Ä•`‰æ‚ğ”ğ‚¯‚é
+        //CPUè² è·ã‚’æ¸›ã‚‰ã™ãŸã‚, å†æç”»ã‚’é¿ã‘ã‚‹
         if(time == prevTime) {
             return;
         } else {
