@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body, html {
+  text-align:auto;
+  height:100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+iframe {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  transition: all 1s;
+}
+
+.next-link
+, .back-link {
+  position: absolute;
+  display: block;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  opacity: 0;
+  /* transition: 0.5s ease-in-out; */
+  transition: all 0.5s;
+}
+
+.next-link:hover
+, .back-link:hover {
+  opacity: 0.3;
+}
+
+
+#clock1 {
+  position: absolute;
+  top: 0;
+  left: 0%;
+}
+#back-link1 {
+  left: 0%;
+}
+
+#next-link1 {
+  left: 90%;
+}
+
+#clock2 {
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+#back-link2 {
+  left: 100%;
+}
+
+#next-link2 {
+  left: 190%;
+}
+
+</style>
+</head>
+<body>
+
+<iframe src="/clocks/simple/clock.html" id="clock1"></iframe>
+<a href="#clock0" id="back-link1" class="back-link">◀</a>
+<a href="#clock2" id="next-link1" class="next-link">▶</a>
+
+<iframe src="/clocks/simple2/clock.html" id="clock2"></iframe>
+<a href="#clock1" id="back-link2" class="back-link">◀</a>
+<a href="#clock3" id="next-link2" class="next-link">▶</a>
+
+</body>

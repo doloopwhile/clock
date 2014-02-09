@@ -8,7 +8,7 @@ body {
     text-align:auto;
     height:100%;
     width: 100%;
-    background-color: white;
+    background-color: black;
     padding: 0;
     margin: 0;
 }
@@ -38,7 +38,7 @@ function drawClockLine (context, s, front, back) {
     //針を描く関数
     //太さ・色はcontextの現在値
     var angle = - 2 * Math.PI * (s + 45) / 60;
-    context.beginPath();  
+    context.beginPath();
     context.moveTo(back*Math.cos(angle),
                    - back*Math.sin(angle));
                    context.lineTo(front*Math.cos(angle),
@@ -50,7 +50,7 @@ function circle(context, x, y, radius){
     context.arc(x, y, radius, 0, 2*Math.PI, false);
 }
 
-$(document).ready(function(){ 
+$(document).ready(function(){
     var canvas = $("canvas#clock").get(0);
     var w = canvas.width = $(document).width();
     var h = canvas.height = $(document).height();
@@ -104,7 +104,7 @@ $(document).ready(function(){
                 var date=now.getDate();
                 var day = now.getDay();
                 var seconds = now.getSeconds();
-                var minutes = now.getMinutes();   
+                var minutes = now.getMinutes();
                 var hours = now.getHours() + minutes / 60;
                 var am = (now.getHours() < 12);
             } else {
@@ -112,7 +112,7 @@ $(document).ready(function(){
                 var date=now.getUTCDate();
                 var day = now.getUTCDay();
                 var seconds = now.getUTCSeconds();
-                var minutes = now.getUTCMinutes();   
+                var minutes = now.getUTCMinutes();
                 var hours = now.getUTCHours() + minutes / 60;
                 var am = (now.getUTCHours() < 12);
             }
@@ -144,7 +144,7 @@ $(document).ready(function(){
             context.fillStyle = "rgba(255, 0, 0, 1)";
             context.beginPath();
             circle(context, 0, 0, L / 40);
-            context.fill(); 
+            context.fill();
 
             context.restore();
         }
