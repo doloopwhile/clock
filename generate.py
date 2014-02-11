@@ -13,7 +13,7 @@ env = jinja2.Environment(
 
 CLOCK_NAMES = '''
 simple
-simple2
+colors
 '''.split()
 
 
@@ -39,10 +39,21 @@ def generate_flowlist():
 def main():
     check_call('mkdir -p output; rm -rf output/*', shell=True)
     for clock_name in CLOCK_NAMES:
-        shutil.copytree(
-            'clocks/{}'.format(clock_name),
-            'output/clocks/{}'.format(clock_name)
-        )
+        src = Path('clocks') / clock_name
+        output = Path('output') / 'clocks' / clock_name
+        shutil.copytree(str(src), str(output))
+
+        coffee = src / 'coffee'
+        js = output / 'js'
+
+        coffee_scripts = list(coffee.glob('*.coffee'))
+        if coffee_scripts:
+            if not js.exists():
+                js.mkdir()
+            check_call(['coffee', '-c', '-o', str(js)] + list(map(str, coffee_scripts)))
+
+    Path('output/css').symlink_to('../css', True)
+    Path('output/js').symlink_to('../js', True)
     generate_flowlist()
 
 

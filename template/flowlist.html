@@ -1,66 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/css/flowlist.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/flowlist.js"></script>
 <style>
-body, html {
-  text-align:auto;
-  height:100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  transition: all 0.5s;
-}
-
-iframe {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  transition: all 1s;
-}
-
-.next-link
-, .back-link {
-  position: absolute;
-  display: block;
-  top: 0;
-  height: 100%;
-  width: 10%;
-  background-color: black;
-  color: white;
-  text-align: center;
-  opacity: 0;
-  /* transition: 0.5s ease-in-out; */
-  transition: all 0.5s;
-}
-
-.next-link:hover
-, .back-link:hover {
-  opacity: 0.3;
-}
-
 {% for clock in clocks %}
-#clock{{ loop.index }} {
-  position: absolute;
-  top: 0;
-  left: {{ 100 * (loop.index - 1) }}%;
-}
-#back-link{{ loop.index }} {
-  left: {{ 100 * (loop.index - 1) }}%;
-}
-
-#next-link{{ loop.index }} {
-  left: {{ 100 * (loop.index - 1) + 90}}%;
+#clock{{loop.index}} {
+  left: {{ loop.index0 * 100 }}%;
 }
 {% endfor %}
 </style>
 </head>
 <body>
 {% for clock in clocks %}
-<iframe src="{{ clock.url }}" id="clock{{ loop.index }}"></iframe>
-<a href="#clock{{ loop.index - 1}}" id="back-link{{ loop.index }}" class="back-link">◀</a>
-<a href="#clock{{ loop.index + 1}}" id="next-link{{ loop.index }}" class="next-link">▶</a>
+<div class="clock" id="clock{{ loop.index }}">
+  {% if not loop.first %}
+    <a href="#clock{{ loop.index - 1 }}" class="back-link">◀</a>
+  {% endif %}
+  <iframe src="{{ clock.url }}" ></iframe>
+  {% if not loop.last %}
+    <a href="#clock{{ loop.index + 1}}" class="next-link">▶</a>
+  {% endif %}
+</div>
 {% endfor %}
 </body>
