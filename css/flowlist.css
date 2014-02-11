@@ -1,0 +1,62 @@
+body, html {
+  text-align:auto;
+  height:100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.clock {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+iframe {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  left: 0;
+  top: 0;
+}
+
+.next-link, .back-link {
+  position: absolute;
+  z-index: 2;
+  /* display: block; */
+  height: 100%;
+  width: 5%;
+
+  background-color: black;
+  color: white;
+  font-size: 100px;
+  text-decoration: none;
+  text-align: center;
+
+  display: table-cell;
+  vertical-align: middle;
+  text-align:center;
+
+  transition: opacity 0.5s;
+  opacity: 0.05;
+}
+
+.next-link:hover
+, .back-link:hover {
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+
+.prev-link {
+  left: 0;
+}
+
+.next-link {
+  left: 95%;
+}
