@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/css/flowlist.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/flowlist.js"></script>
+<style>
+
+#clock1 {
+  left: 0%;
+}
+
+#clock2 {
+  left: 100%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="clock" id="clock1">
+  
+  <iframe src="/clocks/simple/clock.html" ></iframe>
+  
+    <a href="#clock2" class="next-link">▶</a>
+  
+</div>
+
+<div class="clock" id="clock2">
+  
+    <a href="#clock1" class="back-link">◀</a>
+  
+  <iframe src="/clocks/colors/clock.html" ></iframe>
+  
+</div>
+
+</body>
