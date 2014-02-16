@@ -14,6 +14,7 @@ env = jinja2.Environment(
 CLOCK_NAMES = '''
 simple
 colors
+colors2
 '''.split()
 
 

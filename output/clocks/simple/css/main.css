@@ -1,9 +1,0 @@
-canvas#clock {
-    display: block;
-    margin: auto;
-}
-.timezone {
-    color: #66F;
-    text-decoration: underline;
-    cursor: pointer;
-}
