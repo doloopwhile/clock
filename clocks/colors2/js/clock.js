@@ -104,6 +104,7 @@
       minute = now.getMinutes();
       now = new Date;
       context.fillStyle = style_from_rgb(get_mid_rgb(get_hour_rgb(hour), get_hour_rgb((hour + 1) % 24), minute / 60));
+      context.fillStyle = "rgb(44, 62, 80)";
       context.fillRect(0, 0, width, height);
       _results = [];
       for (i = _i = 0; _i < 24; i = ++_i) {

@@ -125,6 +125,7 @@ jQuery ($) =>
       get_hour_rgb((hour + 1) % 24),
       minute / 60
     ))
+    context.fillStyle = "rgb(44, 62, 80)"
     context.fillRect(0, 0, width, height)
 
     for i in [0...24]
