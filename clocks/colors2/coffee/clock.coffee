@@ -53,6 +53,7 @@ mid_point = (x, y, r) =>
 get_mid_rgb = (rgb1, rgb2, r) =>
   rgb1[i] * (1 - r) + rgb2[i] * r for i in [0, 1, 2]
 
+
 style_from_rgb = (rgb) =>
   f = Math.floor
   "rgb(#{f(255 * rgb[0])},#{f(255 * rgb[1])},#{f(255 * rgb[2])})"
@@ -65,9 +66,10 @@ get_hour_rgb = (hour) =>
 
   colors = [
     [0, rgb(32, 32, 32)],
-    [3, rgb(44, 62, 80)],
-    # [7,rgb(52, 152, 219) ],
-    [8, rgb(46, 204, 113)], # emerald
+    # [3, rgb(44, 62, 80)],
+    [5,rgb(52, 152, 219) ],
+    # [9, rgb(46, 204, 113)], # emerald
+    [9, rgb(26, 188, 156)],
     [12, rgb(236, 240, 241)], # cloud
     [16, rgb(241, 196, 15)], # sun flower
     [18, rgb(231, 76, 60)], # alizarin
