@@ -197,7 +197,7 @@ jQuery ($) =>
       dy = 0
     else if 8 <= s <= 11
       dx = 1
-      dy = (s - 8) / 5
+      dy = (s - 8) / 4
     else if 11 <= s <= 12
       dx = dy = 1
     if seconds > 30
