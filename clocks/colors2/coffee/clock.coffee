@@ -66,8 +66,8 @@ get_hour_rgb = (hour) =>
   colors = [
     [0, rgb(32, 32, 32)],
     [3, rgb(44, 62, 80)],
-    [7,rgb(52, 152, 219) ],
-    [9, rgb(46, 204, 113)], # emerald
+    # [7,rgb(52, 152, 219) ],
+    [8, rgb(46, 204, 113)], # emerald
     [12, rgb(236, 240, 241)], # cloud
     [16, rgb(241, 196, 15)], # sun flower
     [18, rgb(231, 76, 60)], # alizarin
