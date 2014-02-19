@@ -53,22 +53,11 @@
   };
 
   get_hour_rgb = function(hour) {
-    var v, x;
-    hour = hour % 24;
-    if (hour < 0) {
-      hour += 24;
-    }
-    if ((6 <= hour && hour <= 18)) {
-      v = 0.5 + (hour - 6) / 24;
-      return hsv_to_rgb((hour - 6) / 12, 1);
-    } else {
-      if (hour < 6) {
-        x = hour / 6;
-      } else {
-        x = (24 - hour) / 6;
-      }
-      return hsv_to_rgb((hour - 18) / 12, x, Math.pow(x / 2, 1.5));
-    }
+    var h, i, s, v;
+    i = hour;
+    h = (i % 24) / 24;
+    s = v = 1;
+    return hsv_to_rgb(h, s, v);
   };
 
   mid_point = function(x, y, r) {
@@ -192,7 +181,7 @@
       } else if ((8 <= s && s <= 11)) {
         dx = 1;
         dy = (s - 8) / 3;
-      } else if ((11 <= s && s <= 12)) {
+      } else {
         dx = dy = 1;
       }
       if (seconds > 30) {

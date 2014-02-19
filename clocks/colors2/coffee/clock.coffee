@@ -19,41 +19,30 @@ hsv_to_rgb = (h, s, v) =>
     when 5 then r = v; g = p; b = q
   return [r, g, b]
 
-# get_hour_rgb = (hour) =>
-#   i = hour
-#   h = (i % 24) / 24
-#   s = v = 1
-#   [r, g, b] = hsv_to_rgb(h, s, v)
-#   v = r + g + b
-#   [r/v, g/v, b/v]
-
 get_hour_rgb = (hour) =>
-  hour = hour % 24
-  if hour < 0
-    hour += 24
+  i = hour
+  h = (i % 24) / 24
+  s = v = 1
+  hsv_to_rgb(h, s, v)
 
-  if 6 <= hour <= 18
-    v = 0.5 + (hour - 6) / 24
-    hsv_to_rgb((hour - 6) / 12, 1, )
-  else
-    if hour < 6
-      x = hour / 6
-    else
-      x = (24 - hour) / 6
-    hsv_to_rgb(
-      (hour - 18) / 12,
-      x,
-      Math.pow(x / 2, 1.5)
-    )
-
-  # if 0 <= h < 6
-  #   get_mid_rgb(c0, c1, h / 6)
-  # else if 6 <= h < 12
-  #   get_mid_rgb(c1, c2, (h - 6) / 6)
-  # else if 12 <= h < 18
-  #   get_mid_rgb(c2, c3, (h - 12) / 6)
-  # else
-  #   get_mid_rgb(c3, c0, (h - 18) / 6)
+# get_hour_rgb = (hour) =>
+#   hour = hour % 24
+#   if hour < 0
+#     hour += 24
+#
+#   if 6 <= hour <= 18
+#     v = 0.5 + (hour - 6) / 24
+#     hsv_to_rgb((hour - 6) / 12, 1, )
+#   else
+#     if hour < 6
+#       x = hour / 6
+#     else
+#       x = (24 - hour) / 6
+#     hsv_to_rgb(
+#       (hour - 18) / 12,
+#       x,
+#       Math.pow(x / 2, 1.5)
+#     )
 
 
 mid_point = (x, y, r) =>
@@ -198,7 +187,7 @@ jQuery ($) =>
     else if 8 <= s <= 11
       dx = 1
       dy = (s - 8) / 3
-    else if 11 <= s <= 12
+    else
       dx = dy = 1
     if seconds > 30
       dx = 1 - dx
