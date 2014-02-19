@@ -81,33 +81,6 @@
     return "rgb(" + (f(255 * rgb[0])) + "," + (f(255 * rgb[1])) + "," + (f(255 * rgb[2])) + ")";
   };
 
-  get_hour_rgb = function(hour) {
-    var colors, i, next_color, next_hour, prev_color, prev_hour, r, rgb, _i, _ref, _ref1, _ref2, _ref3, _ref4;
-    hour %= 24;
-    rgb = function(ir, ig, ib) {
-      return [ir / 255, ig / 255, ib / 255];
-    };
-    colors = [[2, rgb(44, 62, 80)], [7, rgb(52, 152, 219)], [9, rgb(46, 204, 113)], [12, rgb(236, 240, 241)], [15, rgb(241, 196, 15)], [18, rgb(231, 76, 60)], [23, rgb(32, 32, 32)]];
-    if (hour < colors[0][0]) {
-      hour += 24;
-    }
-    for (i = _i = 0, _ref = colors.length - 1; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-      _ref1 = colors[i], prev_hour = _ref1[0], prev_color = _ref1[1];
-      _ref2 = colors[(i + 1) % colors.length], next_hour = _ref2[0], next_color = _ref2[1];
-      if ((prev_hour <= hour && hour < next_hour)) {
-        r = (hour - prev_hour) / (next_hour - prev_hour);
-        return get_mid_rgb(prev_color, next_color, r);
-      }
-    }
-    _ref3 = colors[colors.length - 1], prev_hour = _ref3[0], prev_color = _ref3[1];
-    _ref4 = colors[0], next_hour = _ref4[0], next_color = _ref4[1];
-    next_hour += 24;
-    r = (hour - prev_hour) / (next_hour - prev_hour);
-    return get_mid_rgb(prev_color, next_color, r);
-  };
-
-  console.log(get_hour_rgb(0));
-
   jQuery(function($) {
     var bg_canvas, bg_hour, bg_minute, bheight, bwidth, canvas, col_count, drawClock, height, margin, redrawBgCanvas, row_count, width;
     canvas = $('#clock').get(0);

@@ -56,40 +56,39 @@ style_from_rgb = (rgb) =>
   "rgb(#{f(255 * rgb[0])},#{f(255 * rgb[1])},#{f(255 * rgb[2])})"
 
 
-get_hour_rgb = (hour) =>
-  hour %= 24
-
-  rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
-
-  colors = [
-    [2, rgb(44, 62, 80)],
-    [7,rgb(52, 152, 219) ],
-    [9, rgb(46, 204, 113)], # emerald
-    [12, rgb(236, 240, 241)], # cloud
-    [15, rgb(241, 196, 15)], # sun flower
-    [18, rgb(231, 76, 60)], # alizarin
-    [23, rgb(32, 32, 32)],
-    # [21, rgb(22, 160, 133)], # green sea
-  ]
-
-  if hour < colors[0][0]
-    hour += 24
-
-  for i in [0...colors.length - 1]
-    [prev_hour, prev_color] = colors[i]
-    [next_hour, next_color] = colors[(i + 1) % colors.length]
-
-    if prev_hour <= hour < next_hour
-      r = (hour - prev_hour) / (next_hour - prev_hour)
-      return get_mid_rgb(prev_color, next_color, r)
-
-  [prev_hour, prev_color] = colors[colors.length - 1]
-  [next_hour, next_color] = colors[0]
-  next_hour += 24
-  r = (hour - prev_hour) / (next_hour - prev_hour)
-  return get_mid_rgb(prev_color, next_color, r)
-
-console.log get_hour_rgb(0)
+# get_hour_rgb = (hour) =>
+#   hour %= 24
+#
+#   rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
+#
+#   colors = [
+#     [2, rgb(44, 62, 80)],
+#     [7,rgb(52, 152, 219) ],
+#     [9, rgb(46, 204, 113)], # emerald
+#     [12, rgb(236, 240, 241)], # cloud
+#     [15, rgb(241, 196, 15)], # sun flower
+#     [18, rgb(231, 76, 60)], # alizarin
+#     [23, rgb(32, 32, 32)],
+#     # [21, rgb(22, 160, 133)], # green sea
+#   ]
+#
+#   if hour < colors[0][0]
+#     hour += 24
+#
+#   for i in [0...colors.length - 1]
+#     [prev_hour, prev_color] = colors[i]
+#     [next_hour, next_color] = colors[(i + 1) % colors.length]
+#
+#     if prev_hour <= hour < next_hour
+#       r = (hour - prev_hour) / (next_hour - prev_hour)
+#       return get_mid_rgb(prev_color, next_color, r)
+#
+#   [prev_hour, prev_color] = colors[colors.length - 1]
+#   [next_hour, next_color] = colors[0]
+#   next_hour += 24
+#   r = (hour - prev_hour) / (next_hour - prev_hour)
+#   return get_mid_rgb(prev_color, next_color, r)
+#
 
 
 
