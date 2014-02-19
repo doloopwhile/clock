@@ -23,37 +23,28 @@ hsv_to_rgb = (h, s, v) =>
 #   i = hour
 #   h = (i % 24) / 24
 #   s = v = 1
-#   [r, g, b] = hsv_to_rgb(h, s, v)
-#   v = r + g + b
-#   [r/v, g/v, b/v]
+#   hsv_to_rgb(h, s, v)
 
-get_hour_rgb = (hour) =>
-  hour = hour % 24
-  if hour < 0
-    hour += 24
 
-  if 6 <= hour <= 18
-    v = 0.5 + (hour - 6) / 24
-    hsv_to_rgb((hour - 6) / 12, 1, )
-  else
-    if hour < 6
-      x = hour / 6
-    else
-      x = (24 - hour) / 6
-    hsv_to_rgb(
-      (hour - 18) / 12,
-      x,
-      Math.pow(x / 2, 1.5)
-    )
 
-  # if 0 <= h < 6
-  #   get_mid_rgb(c0, c1, h / 6)
-  # else if 6 <= h < 12
-  #   get_mid_rgb(c1, c2, (h - 6) / 6)
-  # else if 12 <= h < 18
-  #   get_mid_rgb(c2, c3, (h - 12) / 6)
-  # else
-  #   get_mid_rgb(c3, c0, (h - 18) / 6)
+# get_hour_rgb = (hour) =>
+#   hour = hour % 24
+#   if hour < 0
+#     hour += 24
+#
+#   if 6 <= hour <= 18
+#     v = 0.5 + (hour - 6) / 24
+#     hsv_to_rgb((hour - 6) / 12, 1, )
+#   else
+#     if hour < 6
+#       x = hour / 6
+#     else
+#       x = (24 - hour) / 6
+#     hsv_to_rgb(
+#       (hour - 18) / 12,
+#       x,
+#       Math.pow(x / 2, 1.5)
+#     )
 
 
 mid_point = (x, y, r) =>
@@ -67,43 +58,125 @@ style_from_rgb = (rgb) =>
   "rgb(#{f(255 * rgb[0])},#{f(255 * rgb[1])},#{f(255 * rgb[2])})"
 
 
+# get_hour_rgb = (hour) =>
+#   hour %= 24
+#
+#   rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
+#
+#   colors = [
+#     [2, rgb(44, 62, 80)],
+#     [7,rgb(52, 152, 219) ],
+#     [9, rgb(46, 204, 113)], # emerald
+#     [12, rgb(236, 240, 241)], # cloud
+#     [15, rgb(241, 196, 15)], # sun flower
+#     [18, rgb(231, 76, 60)], # alizarin
+#     [23, rgb(32, 32, 32)],
+#     # [21, rgb(22, 160, 133)], # green sea
+#   ]
+#
+#   if hour < colors[0][0]
+#     hour += 24
+#
+#   for i in [0...colors.length - 1]
+#     [prev_hour, prev_color] = colors[i]
+#     [next_hour, next_color] = colors[(i + 1) % colors.length]
+#
+#     if prev_hour <= hour < next_hour
+#       r = (hour - prev_hour) / (next_hour - prev_hour)
+#       return get_mid_rgb(prev_color, next_color, r)
+#
+#   [prev_hour, prev_color] = colors[colors.length - 1]
+#   [next_hour, next_color] = colors[0]
+#   next_hour += 24
+#   r = (hour - prev_hour) / (next_hour - prev_hour)
+#   return get_mid_rgb(prev_color, next_color, r)
+#
+
 get_hour_rgb = (hour) =>
-  hour %= 24
+  rgb_hex1 = [
+    [22, 21, 26], # くろ
+    [54, 50, 142], # むらさき
+    [149, 26, 107], # あかむらさき
+    [84, 27, 134], # すみれいろ
+    [1, 106, 184], # あお
+    [15, 92, 170], # ぐんじょういろ
+    [110, 185, 43], # きみどり
+    [0, 155, 98], # みどり
+    [0, 94, 102], # ふかみどり
+    [99, 181, 217], # みずいろ
+    [255, 255, 255], # しろ
+    [124, 132, 135], # ねずみいろ
+    [212, 212, 214], # ぎんいろ
+  ]
+  rgb_hex1.sort (a, b) =>
+     (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2])
 
-  rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
-
-  colors = [
-    [2, rgb(44, 62, 80)],
-    [7,rgb(52, 152, 219) ],
-    [9, rgb(46, 204, 113)], # emerald
-    [12, rgb(236, 240, 241)], # cloud
-    [15, rgb(241, 196, 15)], # sun flower
-    [18, rgb(231, 76, 60)], # alizarin
-    [23, rgb(32, 32, 32)],
-    # [21, rgb(22, 160, 133)], # green sea
+  rgb_hex2 = [
+    [195, 153, 105], # きんいろ
+    [255, 223, 1], # きいろ
+    [249, 190, 0], # やまぶきいろ
+    [208, 143, 8], # おうどいろ
+    [236, 108, 165], # ももいろ
+    [231, 0, 18], # あか
+    [230, 53, 47], # しゅいろ
+    [241, 130, 0], # だいだいいろ
+    [248, 196, 132], # うすだいだい
+    [129, 62, 46], # ちゃいろ
+    [82, 60, 49], # こげちゃいろ
   ]
 
-  if hour < colors[0][0]
-    hour += 24
+  rgb_hex2.sort (a, b) =>
+    (b[0] + b[1] + b[2]) - (a[0] + a[1] + a[2])
 
-  for i in [0...colors.length - 1]
-    [prev_hour, prev_color] = colors[i]
-    [next_hour, next_color] = colors[(i + 1) % colors.length]
+  rgb_hex = rgb_hex1.concat(rgb_hex2)[hour % 24]
 
-    if prev_hour <= hour < next_hour
-      r = (hour - prev_hour) / (next_hour - prev_hour)
-      return get_mid_rgb(prev_color, next_color, r)
+  [rgb_hex[0] / 255, rgb_hex[1] / 255, rgb_hex[2] / 255]
 
-  [prev_hour, prev_color] = colors[colors.length - 1]
-  [next_hour, next_color] = colors[0]
-  next_hour += 24
-  r = (hour - prev_hour) / (next_hour - prev_hour)
-  return get_mid_rgb(prev_color, next_color, r)
+# [255, 255, 255], # しろ
+# [255, 223, 1], # きいろ
+# [249, 190, 0], # やまぶきいろ
+# [208, 143, 8], # おうどいろ
+# [110, 185, 43], # きみどり
+# [0, 155, 98], # みどり
+# [0, 94, 102], # ふかみどり
+# [99, 181, 217], # みずいろ
+# [1, 106, 184], # あお
+# [15, 92, 170], # ぐんじょういろ
+# [54, 50, 142], # むらさき
+# [84, 27, 134], # すみれいろ
+# [236, 108, 165], # ももいろ
+# [149, 26, 107], # あかむらさき
+# [231, 0, 18], # あか
+# [230, 53, 47], # しゅいろ
+# [241, 130, 0], # だいだいいろ
+# [248, 196, 132], # うすだいだい
+# [129, 62, 46], # ちゃいろ
+# [82, 60, 49], # こげちゃいろ
+# [22, 21, 26], # くろ
+# [124, 132, 135], # ねずみいろ
+# [212, 212, 214], # ぎんいろ
+# [195, 153, 105], # きんいろ
 
-console.log get_hour_rgb(0)
+window.X = 1
+window.Y = 0#2.2
+get_hour_rgb = (hour) =>
+  i = hour % 24
 
+  h = ((- i * window.X + window.Y) % 12) / 12
 
+  v = if 6 <= i <= 18
+    1
+  else
+    if 18 <= i
+      r = (24 - i) / 6
+    else
+      r = i / 6
+    mid_point(0.2, 1, r)
 
+  s = (12 - Math.abs(12 - i)) / 4
+  s = Math.min(1, s)
+
+  hsv_to_rgb(h, s, v)
 
 jQuery ($) =>
   canvas = $('#clock').get(0)
@@ -197,8 +270,8 @@ jQuery ($) =>
       dy = 0
     else if 8 <= s <= 11
       dx = 1
-      dy = (s - 8) / 5
-    else if 11 <= s <= 12
+      dy = (s - 8) / 3
+    else
       dx = dy = 1
     if seconds > 30
       dx = 1 - dx
