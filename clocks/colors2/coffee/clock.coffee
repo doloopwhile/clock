@@ -58,41 +58,41 @@ style_from_rgb = (rgb) =>
   "rgb(#{f(255 * rgb[0])},#{f(255 * rgb[1])},#{f(255 * rgb[2])})"
 
 
-# get_hour_rgb = (hour) =>
-#   hour %= 24
-#
-#   rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
-#
-#   colors = [
-#     [2, rgb(44, 62, 80)],
-#     [7,rgb(52, 152, 219) ],
-#     [9, rgb(46, 204, 113)], # emerald
-#     [12, rgb(236, 240, 241)], # cloud
-#     [15, rgb(241, 196, 15)], # sun flower
-#     [18, rgb(231, 76, 60)], # alizarin
-#     [23, rgb(32, 32, 32)],
-#     # [21, rgb(22, 160, 133)], # green sea
-#   ]
-#
-#   if hour < colors[0][0]
-#     hour += 24
-#
-#   for i in [0...colors.length - 1]
-#     [prev_hour, prev_color] = colors[i]
-#     [next_hour, next_color] = colors[(i + 1) % colors.length]
-#
-#     if prev_hour <= hour < next_hour
-#       r = (hour - prev_hour) / (next_hour - prev_hour)
-#       return get_mid_rgb(prev_color, next_color, r)
-#
-#   [prev_hour, prev_color] = colors[colors.length - 1]
-#   [next_hour, next_color] = colors[0]
-#   next_hour += 24
-#   r = (hour - prev_hour) / (next_hour - prev_hour)
-#   return get_mid_rgb(prev_color, next_color, r)
-#
-
 get_hour_rgb = (hour) =>
+  hour %= 24
+
+  rgb = (ir, ig, ib) => [ir / 255, ig / 255, ib / 255]
+
+  colors = [
+    [0, rgb(32, 32, 32)],
+    [3, rgb(44, 62, 80)],
+    [7,rgb(52, 152, 219) ],
+    [9, rgb(46, 204, 113)], # emerald
+    [12, rgb(236, 240, 241)], # cloud
+    [16, rgb(241, 196, 15)], # sun flower
+    [18, rgb(231, 76, 60)], # alizarin
+    # [21, rgb(22, 160, 133)], # green sea
+  ]
+
+  if hour < colors[0][0]
+    hour += 24
+
+  for i in [0...colors.length - 1]
+    [prev_hour, prev_color] = colors[i]
+    [next_hour, next_color] = colors[(i + 1) % colors.length]
+
+    if prev_hour <= hour < next_hour
+      r = (hour - prev_hour) / (next_hour - prev_hour)
+      return get_mid_rgb(prev_color, next_color, r)
+
+  [prev_hour, prev_color] = colors[colors.length - 1]
+  [next_hour, next_color] = colors[0]
+  next_hour += 24
+  r = (hour - prev_hour) / (next_hour - prev_hour)
+  return get_mid_rgb(prev_color, next_color, r)
+
+
+_get_hour_rgb = (hour) =>
   rgb_hex1 = [
     [22, 21, 26], # くろ
     [54, 50, 142], # むらさき
@@ -157,25 +157,11 @@ get_hour_rgb = (hour) =>
 # [212, 212, 214], # ぎんいろ
 # [195, 153, 105], # きんいろ
 
-window.X = 1
-window.Y = 0#2.2
-get_hour_rgb = (hour) =>
-  i = hour % 24
-
-  h = ((- i * window.X + window.Y) % 12) / 12
-
-  v = if 6 <= i <= 18
-    1
-  else
-    if 18 <= i
-      r = (24 - i) / 6
-    else
-      r = i / 6
-    mid_point(0.2, 1, r)
-
-  s = (12 - Math.abs(12 - i)) / 4
-  s = Math.min(1, s)
-
+_get_hour_rgb = (hour) =>
+  i = hour
+  h = (i % 24) / 24
+  s = 0.8
+  v = 0.8
   hsv_to_rgb(h, s, v)
 
 jQuery ($) =>
@@ -205,11 +191,23 @@ jQuery ($) =>
     minute = now.getMinutes()
     now = new Date
 
-    context.fillStyle = style_from_rgb(get_mid_rgb(
+    # context.fillStyle = style_from_rgb(get_mid_rgb(
+    #   get_hour_rgb(hour),
+    #   get_hour_rgb((hour + 1) % 24),
+    #   minute / 60
+    # ))
+    [r, g, b] = get_mid_rgb(
       get_hour_rgb(hour),
       get_hour_rgb((hour + 1) % 24),
       minute / 60
-    ))
+    )
+    v = (r + g + b) / 3
+    r = v / 2 + r / 3
+    g = v / 2 + g / 3
+    b = v / 2 + b / 3
+
+    context.fillStyle = style_from_rgb([r, g, b])
+
     context.fillRect(0, 0, width, height)
 
     for i in [0...24]
