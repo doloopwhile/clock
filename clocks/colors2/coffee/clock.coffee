@@ -205,13 +205,13 @@ jQuery ($) =>
     x = margin * 2 + (bwidth + margin) * mid_point(1, col_count - 2, dx)
     y = margin * 2 + (bheight + margin) * mid_point(1, row_count - 2, dy)
 
-    context.strokeStyle = style_from_rgb(get_mid_rgb(
-      get_hour_rgb((hour + 12) % 24),
-      get_hour_rgb((hour + 13) % 24),
-      minute / 60
-    ))
-    context.lineWidth = 4
-    context.strokeRect(x, y, bwidth, bheight)
+    # context.strokeStyle = style_from_rgb(get_mid_rgb(
+    #   get_hour_rgb((hour + 12) % 24),
+    #   get_hour_rgb((hour + 13) % 24),
+    #   minute / 60
+    # ))
+    # context.lineWidth = 4
+    # context.strokeRect(x, y, bwidth, bheight)
     context.fillRect(x, y, bwidth, bheight)
 
   setInterval(drawClock, 50)
