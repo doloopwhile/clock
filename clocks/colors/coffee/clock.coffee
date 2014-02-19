@@ -40,7 +40,7 @@ get_hour_rgb = (hour) =>
     hsv_to_rgb(
       (6 - hour) / 12,
       x,
-      x / 2
+      Math.pow(x / 2, 1.5)
     )
 
 

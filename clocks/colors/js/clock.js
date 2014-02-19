@@ -74,7 +74,7 @@
       } else {
         x = (24 - hour) / 6;
       }
-      return hsv_to_rgb((6 - hour) / 12, x, x / 2);
+      return hsv_to_rgb((6 - hour) / 12, x, Math.pow(x / 2, 1.5));
     }
   };
 
