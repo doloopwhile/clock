@@ -189,9 +189,11 @@
       } else if ((6 <= s && s <= 8)) {
         dx = 1;
         dy = 0;
-      } else if ((8 <= s && s <= 12)) {
+      } else if ((8 <= s && s <= 11)) {
         dx = 1;
-        dy = (s - 8) / 4;
+        dy = (s - 8) / 5;
+      } else if ((11 <= s && s <= 12)) {
+        dx = dy = 1;
       }
       if (seconds > 30) {
         dx = 1 - dx;
